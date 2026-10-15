@@ -1,0 +1,150 @@
+
+# DocConnect
+
+DocConnect is a healthcare professional networking app. It has two screens: Home and Discover.
+
+The Home page shows the doctor profile and posts. The Discover page shows people who can be connected with.
+
+## Technologies Used
+
+- React Native
+- Expo
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+
+## Project Structure
+
+```text
+DocConnect/
+├── app/
+│   ├── index.tsx
+│   └── discover.tsx
+├── assets/
+├── backend/
+│   ├── src/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── server.js
+│   │   └── seed.js
+│   └── .env
+└── README.md
+```
+
+## Requirements
+
+Before running the project, install these:
+
+- Node.js
+- MongoDB Community Server
+- Expo Go or an Android emulator
+
+## MongoDB Setup
+
+First, install MongoDB Community Server and make sure the MongoDB service is running.
+
+The project uses a database called `docconnect`.
+
+In the backend `.env` file, add:
+
+```env
+PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/docconnect
+```
+
+MongoDB will create the database when the application first inserts data.
+
+## Run the Backend
+
+Open a terminal and go to the backend folder:
+
+```bash
+cd backend
+```
+
+Install the packages:
+
+```bash
+npm install
+```
+
+Start the backend server:
+
+```bash
+npm run start
+```
+
+If everything works, the terminal should show:
+
+```text
+MongoDB Connected
+Server running on port 5000
+```
+
+## Add Sample Data
+
+Before using the app, run the seed script to add sample users and posts to MongoDB.
+
+Open another terminal in the backend folder and run:
+
+```bash
+node src/seed.js
+```
+
+The script creates sample users and posts for the Home and Discover screens.
+
+It also prints the first user's ID. Copy that ID because it is used as the current user in the frontend.
+
+Note: Running the seed script again deletes and recreates the sample users, posts, and connections.
+
+## Run the App
+
+Open another terminal in the main project folder, where the Expo `package.json` is located.
+
+Install the packages:
+
+```bash
+npm install
+```
+
+Create a `.env` file in the frontend folder:
+
+```env
+EXPO_PUBLIC_API_URL=http://10.0.2.2:5000/api
+EXPO_PUBLIC_CURRENT_USER_ID=PASTE_FIRST_USER_ID_HERE
+```
+
+Replace the ID with the one printed by the seed script.
+
+For an Android emulator, use `10.0.2.2` to access the backend running on your computer.
+
+For a physical phone using Expo Go, replace `10.0.2.2` with your computer's local IP address. Make sure both devices are connected to the same Wi-Fi network.
+
+Start Expo:
+
+```bash
+npx expo start
+```
+
+Scan the QR code with Expo Go or open the app in your emulator.
+
+## API Routes
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/users` | Get all users |
+| GET | `/api/users/:id` | Get one user |
+| GET | `/api/posts` | Get all posts |
+| GET | `/api/posts/:id` | Get one post |
+| GET | `/api/connections/:userId` | Get connection requests |
+| POST | `/api/connections` | Send a connection request |
+| PATCH | `/api/connections/:id/accept` | Accept a connection request |
+
+## Notes
+
+- Start MongoDB before running the backend.
+- Run the seed script before testing with sample data.
+- Keep the backend running while using the app.
+- The frontend `.env` file and backend `.env` file have different settings.
+- The app currently contains the Home and Discover screens.
